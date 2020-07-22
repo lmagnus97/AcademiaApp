@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import com.lucas.magnus.academia.util.UtilShared;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button btAddMatricula = findViewById(R.id.btAddMatricula);
         final CardView cardFaturas = findViewById(R.id.cardFaturas);
         final Button btSair = findViewById(R.id.btSair);
+        final TextView tvUsuario = findViewById(R.id.tvUsuario);
 
         //ONCLICK
         btModalidades.setOnClickListener(this);
@@ -40,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btAddMatricula.setOnClickListener(this);
         cardFaturas.setOnClickListener(this);
         btSair.setOnClickListener(this);
+
+        //GET USUARIO ATUAL
+        tvUsuario.setText(getResources().getString(R.string.logado, UtilShared.getIdUsuario(MainActivity.this)));
+
     }
 
     @Override
@@ -73,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, FaturasActivity.class));
                 break;
             case R.id.btSair:
+                UtilShared.logoutUsuario(MainActivity.this);
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

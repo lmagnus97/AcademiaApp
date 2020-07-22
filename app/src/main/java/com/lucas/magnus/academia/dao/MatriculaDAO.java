@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.lucas.magnus.academia.db.AbstractDB;
 import com.lucas.magnus.academia.db.DBOpenHelper;
+import com.lucas.magnus.academia.model.Aluno;
 import com.lucas.magnus.academia.model.Matricula;
 import com.lucas.magnus.academia.util.Utils;
 
@@ -40,9 +41,9 @@ public class MatriculaDAO extends AbstractDB {
             + "("
             + COLUMN_CODIGO_MATRICULA + " INTEGER primary key autoincrement, "
             + COLUMN_CODIGO_ALUNO + " INTEGER DEFAULT NULL, "
-            + COLUMN_DATA_MATRICULA + " VARCHAR NOT NULL, "
+            + COLUMN_DATA_MATRICULA + " integer NOT NULL, "
             + COLUMN_DIA_VENCIMENTO + " INTEGER NOT NULL, "
-            + COLUMN_DATA_ENCERRAMENTO + " VARCHAR DEFAULT NULL, " +
+            + COLUMN_DATA_ENCERRAMENTO + " integer DEFAULT NULL, " +
             " UNIQUE (" + COLUMN_CODIGO_MATRICULA + ", " + COLUMN_CODIGO_ALUNO + " ) ,"
             + " FOREIGN KEY ( " + COLUMN_CODIGO_ALUNO + " ) REFERENCES " + AlunoDAO.TABLE_NAME + " ( " + COLUMN_CODIGO_ALUNO + " )"
             + ");";
@@ -89,9 +90,9 @@ public class MatriculaDAO extends AbstractDB {
         try {
             open();
             ContentValues values = new ContentValues();
-            values.put(COLUMN_CODIGO_ALUNO, data.getCodigoAluno());
-            values.put(COLUMN_DATA_ENCERRAMENTO, Utils.calendarToString(data.getDataEncerramento()));
-            values.put(COLUMN_DATA_MATRICULA, Utils.calendarToString(data.getDataMatricula()));
+            values.put(COLUMN_CODIGO_ALUNO, data.getIdAluno());
+            values.put(COLUMN_DATA_ENCERRAMENTO, data.getDataEncerramento());
+            values.put(COLUMN_DATA_MATRICULA, data.getDataMatricula());
             values.put(COLUMN_DIA_VENCIMENTO, data.getDiaVencimento());
 
             rowsAffect = (int) database.insert(TABLE_NAME, null, values);
@@ -164,13 +165,17 @@ public class MatriculaDAO extends AbstractDB {
     }
 
     public Matricula toObject(Cursor cursor) {
+        Aluno aluno = new Aluno();
+        aluno.setAluno(cursor.getString(cursor.getColumnIndex(AlunoDAO.COLUMN_ALUNO)));
+        aluno.setCodigoAluno(cursor.getInt(cursor.getColumnIndex(COLUMN_CODIGO_ALUNO)));
+
         Matricula data = new Matricula();
         data.setCodigoMatricula(cursor.getInt(cursor.getColumnIndex(COLUMN_CODIGO_MATRICULA)));
-        data.setCodigoAluno(cursor.getInt(cursor.getColumnIndex(COLUMN_CODIGO_ALUNO)));
+        data.setIdAluno(cursor.getInt(cursor.getColumnIndex(COLUMN_CODIGO_ALUNO)));
         data.setDiaVencimento(cursor.getInt(cursor.getColumnIndex(COLUMN_DIA_VENCIMENTO)));
-        data.setDataMatricula(Utils.stringToCalendar(cursor.getString(cursor.getColumnIndex(COLUMN_DATA_MATRICULA))));
-        data.setDataEncerramento(Utils.stringToCalendar(cursor.getString(cursor.getColumnIndex(COLUMN_DATA_ENCERRAMENTO))));
-        data.setAluno(cursor.getString(cursor.getColumnIndex(AlunoDAO.COLUMN_ALUNO)));
+        data.setDataMatricula(cursor.getLong(cursor.getColumnIndex(COLUMN_DATA_MATRICULA)));
+        data.setDataEncerramento(cursor.getLong(cursor.getColumnIndex(COLUMN_DATA_ENCERRAMENTO)));
+        data.setAluno(aluno);
         return data;
     }
 

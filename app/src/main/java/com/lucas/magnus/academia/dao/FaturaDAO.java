@@ -37,8 +37,8 @@ public class FaturaDAO extends AbstractDB {
             + COLUMN_CODIGO_MATRICULA + " int NOT NULL, "
             + COLUMN_DATA_VENCIMENTO + " VARCHAR NOT NULL, "
             + COLUMN_VALOR + " decimal(10,2) NOT NULL, "
-            + COLUMN_DATA_PAGAMENTO + " VARCHAR DEFAULT NULL, "
-            + COLUMN_DATA_CANCELAMENTO + " VARCHAR DEFAULT NULL, "
+            + COLUMN_DATA_PAGAMENTO + " integer DEFAULT NULL, "
+            + COLUMN_DATA_CANCELAMENTO + " integer DEFAULT NULL, "
             + " PRIMARY KEY (" + COLUMN_DATA_VENCIMENTO + ", " + COLUMN_CODIGO_MATRICULA + "), "
             + " FOREIGN KEY ( " + COLUMN_CODIGO_MATRICULA + ") REFERENCES " + MatriculaDAO.TABLE_NAME + " (" + COLUMN_CODIGO_MATRICULA + ")"
             + ")";
@@ -145,8 +145,8 @@ public class FaturaDAO extends AbstractDB {
     public FaturaMatricula toObject(Cursor cursor) {
         FaturaMatricula faturaMatricula = new FaturaMatricula();
         faturaMatricula.setCodigoMatricula(cursor.getInt(cursor.getColumnIndex(COLUMN_CODIGO_MATRICULA)));
-        faturaMatricula.setDataCancelamento(Utils.stringToCalendar(cursor.getString(cursor.getColumnIndex(COLUMN_CODIGO_MATRICULA))));
-        faturaMatricula.setDataPagamento(Utils.stringToCalendar(cursor.getString(cursor.getColumnIndex(COLUMN_CODIGO_MATRICULA))));
+        faturaMatricula.setDataCancelamento(cursor.getLong(cursor.getColumnIndex(COLUMN_CODIGO_MATRICULA)));
+        faturaMatricula.setDataPagamento(cursor.getLong(cursor.getColumnIndex(COLUMN_CODIGO_MATRICULA)));
         faturaMatricula.setDataVencimento(Utils.stringToCalendar(cursor.getString(cursor.getColumnIndex(COLUMN_DATA_VENCIMENTO))));
         faturaMatricula.setValor(cursor.getDouble(cursor.getColumnIndex(COLUMN_VALOR)));
         faturaMatricula.setAluno(cursor.getString(cursor.getColumnIndex(AlunoDAO.COLUMN_ALUNO)));

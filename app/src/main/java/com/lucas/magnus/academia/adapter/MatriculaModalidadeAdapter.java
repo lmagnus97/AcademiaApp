@@ -59,9 +59,9 @@ public class MatriculaModalidadeAdapter extends RecyclerView.Adapter<MatriculaMo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final MatriculaModalidade result = data.get(position);
-        holder.tvPlano.setText(result.getPlano());
-        holder.tvModalidade.setText(result.getModalidade());
-        holder.tvValor.setText(Utils.convertToMoney(result.getValorMensal()));
+        holder.tvPlano.setText(result.getPlano().getPlano());
+        holder.tvModalidade.setText(result.getModalidade().getModalidade());
+        holder.tvValor.setText(Utils.convertToMoney(result.getPlano().getValorMensal()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

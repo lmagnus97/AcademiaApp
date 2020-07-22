@@ -1,11 +1,17 @@
 package com.lucas.magnus.academia.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Modalidade {
+public class Modalidade implements Serializable {
 
     private String modalidade;
+    @SerializedName("id_usuario")
+    private Integer idUsuario;
+    private Integer idNuvem;
 
     public Modalidade() {
     }
@@ -20,6 +26,22 @@ public class Modalidade {
 
     public void setModalidade(String modalidade) {
         this.modalidade = modalidade;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdNuvem() {
+        return idNuvem;
+    }
+
+    public void setIdNuvem(Integer idNuvem) {
+        this.idNuvem = idNuvem;
     }
 
     public static List<String> convertToSpinner(List<Modalidade> lista, String titulo){

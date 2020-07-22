@@ -1,49 +1,60 @@
 package com.lucas.magnus.academia.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Matricula {
+public class Matricula implements Serializable {
 
-    private int codigoMatricula;
-    private Integer codigoAluno;
-    private Calendar dataMatricula;
+    private Integer codigoMatricula;
+    private Long dataMatricula;
     private Integer diaVencimento;
-    private Calendar dataEncerramento;
-    private String aluno;
+    private Long dataEncerramento;
+    private Aluno aluno;
+    @SerializedName("id_usuario")
+    private Integer idUsuario;
+    private Integer idNuvem;
+    @SerializedName("id_aluno")
+    private Integer idAluno;
 
     public Matricula() {
     }
 
-    public Matricula(int codigoMatricula, int codigoAluno, Calendar dataMatricula, int diaVencimento, Calendar dataEncerramento, String aluno) {
+    public Matricula(int codigoMatricula) {
         this.codigoMatricula = codigoMatricula;
-        this.codigoAluno = codigoAluno;
+    }
+
+    public Matricula(int codigoMatricula, Integer idAluno, Long dataMatricula, int diaVencimento, Long dataEncerramento, Aluno aluno) {
+        this.codigoMatricula = codigoMatricula;
+        this.idAluno = idAluno;
         this.dataMatricula = dataMatricula;
         this.diaVencimento = diaVencimento;
         this.dataEncerramento = dataEncerramento;
         this.aluno = aluno;
     }
 
-    public int getCodigoMatricula() {
+    public Integer getCodigoMatricula() {
         return codigoMatricula;
     }
 
-    public void setCodigoMatricula(int codigoMatricula) {
+    public void setCodigoMatricula(Integer codigoMatricula) {
         this.codigoMatricula = codigoMatricula;
     }
 
-    public int getCodigoAluno() {
-        return codigoAluno;
+    public Integer getIdAluno() {
+        return idAluno;
     }
 
-    public void setCodigoAluno(int codigoAluno) {
-        this.codigoAluno = codigoAluno;
+    public void setIdAluno(Integer idAluno) {
+        this.idAluno = idAluno;
     }
 
-    public Calendar getDataMatricula() {
+    public Long getDataMatricula() {
         return dataMatricula;
     }
 
-    public void setDataMatricula(Calendar dataMatricula) {
+    public void setDataMatricula(Long dataMatricula) {
         this.dataMatricula = dataMatricula;
     }
 
@@ -55,35 +66,51 @@ public class Matricula {
         this.diaVencimento = diaVencimento;
     }
 
-    public Calendar getDataEncerramento() {
+    public Long getDataEncerramento() {
         return dataEncerramento;
     }
 
-    public void setDataEncerramento(Calendar dataEncerramento) {
+    public void setDataEncerramento(Long dataEncerramento) {
         this.dataEncerramento = dataEncerramento;
     }
 
     public void setCodigoAluno(Integer codigoAluno) {
-        this.codigoAluno = codigoAluno;
+        this.idAluno = codigoAluno;
     }
 
     public void setDiaVencimento(Integer diaVencimento) {
         this.diaVencimento = diaVencimento;
     }
 
-    public String getAluno() {
+    public Aluno getAluno() {
         return aluno;
     }
 
-    public void setAluno(String aluno) {
+    public void setAluno(Aluno aluno) {
         this.aluno = aluno;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdNuvem() {
+        return idNuvem;
+    }
+
+    public void setIdNuvem(Integer idNuvem) {
+        this.idNuvem = idNuvem;
     }
 
     @Override
     public String toString() {
         return "Matricula{" +
                 "codigoMatricula=" + codigoMatricula +
-                ", codigoAluno=" + codigoAluno +
+                ", codigoAluno=" + idAluno +
                 ", dataMatricula=" + dataMatricula +
                 ", diaVencimento=" + diaVencimento +
                 ", dataEncerramento=" + dataEncerramento +

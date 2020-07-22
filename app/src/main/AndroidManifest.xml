@@ -2,33 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lucas.magnus.academia">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.lucas.magnus.academia.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".AddAlunoActivity" />
-        <activity android:name=".AddModalidadeActivity" />
+        <activity android:name="com.lucas.magnus.academia.MainActivity"/>
+        <activity android:name="com.lucas.magnus.academia.AddAlunoActivity" />
+        <activity android:name="com.lucas.magnus.academia.AddModalidadeActivity" />
         <activity android:name="com.lucas.magnus.academia.ModalidadesActivity" />
-        <activity android:name=".AlunosActivity" />
-        <activity android:name=".AddPlanoActivity" />
-        <activity android:name=".PlanosActivity" />
-        <activity android:name=".SelecionaAlunoActivity" />
-        <activity android:name=".AddMatriculaActivity" />
-        <activity android:name=".MatriculasActivity" />
-        <activity android:name=".SelecionaCidadeActivity" />
-        <activity android:name=".GerarFaturaoActivity" />
-        <activity android:name=".FaturasActivity" />
+        <activity android:name="com.lucas.magnus.academia.AlunosActivity" />
+        <activity android:name="com.lucas.magnus.academia.AddPlanoActivity" />
+        <activity android:name="com.lucas.magnus.academia.PlanosActivity" />
+        <activity android:name="com.lucas.magnus.academia.SelecionaAlunoActivity" />
+        <activity android:name="com.lucas.magnus.academia.AddMatriculaActivity" />
+        <activity android:name="com.lucas.magnus.academia.MatriculasActivity" />
+        <activity android:name="com.lucas.magnus.academia.SelecionaCidadeActivity" />
+        <activity android:name="com.lucas.magnus.academia.GerarFaturaoActivity" />
+        <activity android:name="com.lucas.magnus.academia.FaturasActivity" />
+        <activity android:name="com.lucas.magnus.academia.CriarContaActivity" />
     </application>
 
 </manifest>

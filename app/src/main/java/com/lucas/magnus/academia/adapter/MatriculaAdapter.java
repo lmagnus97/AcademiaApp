@@ -1,6 +1,5 @@
 package com.lucas.magnus.academia.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,7 @@ public class MatriculaAdapter extends RecyclerView.Adapter<MatriculaAdapter.MyVi
         final Matricula result = data.get(position);
 
         holder.tvCodMatricula.setText(holder.itemView.getResources().getString(R.string.matricula_numero, result.getCodigoMatricula()));
-        holder.tvAluno.setText(result.getAluno());
+        holder.tvAluno.setText(result.getAluno().getAluno());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

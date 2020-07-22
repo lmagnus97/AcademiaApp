@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lucas.magnus.academia.R;
-import com.lucas.magnus.academia.dao.GraduacaoDAO;
 import com.lucas.magnus.academia.dao.PlanoDAO;
 import com.lucas.magnus.academia.model.Plano;
 
@@ -60,7 +59,7 @@ public class PlanoAdapter extends RecyclerView.Adapter<PlanoAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Plano result = data.get(position);
-        holder.tvModalidade.setText(result.getModalidade());
+        holder.tvModalidade.setText(result.getModalidade().getModalidade());
         holder.tvPlano.setText(result.getPlano());
         holder.tvValor.setText(String.format(Locale.ROOT, "R$%.2f", result.getValorMensal()).replace(".",","));
 

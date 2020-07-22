@@ -3,7 +3,6 @@ package com.lucas.magnus.academia;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -18,13 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lucas.magnus.academia.adapter.GraduacaoAdapter;
+import com.lucas.magnus.academia.api.API;
 import com.lucas.magnus.academia.dao.GraduacaoDAO;
 import com.lucas.magnus.academia.dao.ModalidadeDAO;
 import com.lucas.magnus.academia.model.Graduacao;
 import com.lucas.magnus.academia.model.Modalidade;
+import com.lucas.magnus.academia.model.Resposta;
 
 import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddModalidadeActivity extends AppCompatActivity implements GraduacaoAdapter.OnItemSelectedListener {
 
@@ -74,7 +79,7 @@ public class AddModalidadeActivity extends AppCompatActivity implements Graduaca
 
         //GET GRADUACOES
         final GraduacaoDAO graduacaoDAO = new GraduacaoDAO(AddModalidadeActivity.this);
-        final List<Graduacao> listaGraduacoes = graduacaoDAO.selectAll(etModalidade.getText().toString());
+        final List<Graduacao> listaGraduacoes = graduacaoDAO.selectForModalidade(etModalidade.getText().toString());
         mAdapter = new GraduacaoAdapter(listaGraduacoes, R.layout.item_graduacao, this);
         recyclerView.setAdapter(mAdapter);
 
@@ -113,7 +118,7 @@ public class AddModalidadeActivity extends AppCompatActivity implements Graduaca
                     if (mModalidade != null) {
                         final Graduacao graduacao = new Graduacao();
                         graduacao.setGraduacao(etGraduacao.getText().toString());
-                        graduacao.setModalidade(mModalidade.getModalidade());
+                        graduacao.setModalidade(new Modalidade(mModalidade.getModalidade()));
 
                         if (graduacaoDAO.insert(graduacao) > 0) {
                             etGraduacao.setText("");

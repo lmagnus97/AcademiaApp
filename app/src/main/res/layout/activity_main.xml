@@ -24,15 +24,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:fontFamily="cursive"
             android:text="@string/academia"
             android:textColor="@color/white"
-            android:layout_marginStart="25dp"
             android:textSize="32sp"
-            android:textStyle="bold"
-            android:fontFamily="cursive"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <HorizontalScrollView
+        android:id="@+id/scrollButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/boxInfo"
@@ -255,6 +256,39 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollButtons"
+        android:layout_marginStart="25sp"
+        android:layout_marginTop="15sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sincrozinar_nuvem"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:text="@string/sincronizar"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

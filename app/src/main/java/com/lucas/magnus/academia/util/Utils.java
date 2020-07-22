@@ -63,4 +63,8 @@ public class Utils {
         return String.format(Locale.ROOT,"R$%.2f", value).replace(".",",");
     }
 
+    public static void log(String local, String msg){
+        Log.i("INFOLOG", local + " -> " + msg);
+    }
+
 }

@@ -1,19 +1,14 @@
 package com.lucas.magnus.academia.adapter;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lucas.magnus.academia.R;
-import com.lucas.magnus.academia.dao.MatriculaModalidadeDAO;
 import com.lucas.magnus.academia.model.FaturaMatricula;
-import com.lucas.magnus.academia.model.MatriculaModalidade;
 import com.lucas.magnus.academia.util.Utils;
 
 import java.util.List;

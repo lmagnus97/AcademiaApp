@@ -49,7 +49,41 @@ public class GraduacaoDAO extends AbstractDB {
         dbOpenHelper = new DBOpenHelper(context);
     }
 
-    public List<Graduacao> selectAll(String modalidade) {
+    public List<Graduacao> selectAll() {
+        List<Graduacao> lista = new ArrayList<>();
+
+        try {
+            open();
+
+            Cursor cursor = database.query(
+                    GraduacaoDAO.TABLE_NAME,
+                    colunas,
+                    COLUMN_ATIVO + " = 1",
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                lista.add(toObject(cursor));
+                cursor.moveToNext();
+            }
+
+            cursor.close();
+
+        } catch (Exception e) {
+            System.out.println("DATABASE SELECT ALL ERROR " + e.getMessage());
+        } finally {
+            close();
+        }
+
+        return lista;
+    }
+
+    public List<Graduacao> selectForModalidade(String modalidade) {
         List<Graduacao> lista = new ArrayList<>();
 
         try {
@@ -92,7 +126,7 @@ public class GraduacaoDAO extends AbstractDB {
 
             ContentValues values = new ContentValues();
             values.put(COLUMN_GRADUACAO, graduacao.getGraduacao().trim());
-            values.put(COLUMN_MODALIDADE, graduacao.getModalidade().trim());
+            values.put(COLUMN_MODALIDADE, graduacao.getModalidade().getModalidade().trim());
 
             rowsAffect = database.insert(TABLE_NAME, null, values);
 
@@ -114,7 +148,7 @@ public class GraduacaoDAO extends AbstractDB {
                     TABLE_NAME,
                     colunas,
                     COLUMN_ATIVO + " = 0 and " + COLUMN_MODALIDADE + " = ? and " + COLUMN_GRADUACAO + " = ?",
-                    new String[]{graduacao.getModalidade(), graduacao.getGraduacao()},
+                    new String[]{graduacao.getModalidade().getModalidade(), graduacao.getGraduacao()},
                     null,
                     null,
                     null
@@ -148,7 +182,7 @@ public class GraduacaoDAO extends AbstractDB {
             rowAffect = database.update(
                     TABLE_NAME, values,
                     COLUMN_MODALIDADE + "= ? AND " + COLUMN_GRADUACAO + " = ?",
-                    new String[]{graduacao.getModalidade(), graduacao.getGraduacao()});
+                    new String[]{graduacao.getModalidade().getModalidade(), graduacao.getGraduacao()});
 
         } catch (SQLException e) {
             System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
@@ -204,7 +238,7 @@ public class GraduacaoDAO extends AbstractDB {
             rowAffect = database.update(
                     TABLE_NAME, values,
                     COLUMN_MODALIDADE + "= ? AND " + COLUMN_GRADUACAO + " = ?",
-                    new String[]{graduacao.getModalidade(), graduacao.getGraduacao()});
+                    new String[]{graduacao.getModalidade().getModalidade(), graduacao.getGraduacao()});
 
         } catch (SQLException e) {
             System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
@@ -218,7 +252,7 @@ public class GraduacaoDAO extends AbstractDB {
     public Graduacao toObject(Cursor cursor) {
         Graduacao graduacao = new Graduacao();
         graduacao.setGraduacao(cursor.getString(cursor.getColumnIndex(COLUMN_GRADUACAO)));
-        graduacao.setModalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE)));
+        graduacao.setModalidade(new Modalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE))));
         return graduacao;
     }
 

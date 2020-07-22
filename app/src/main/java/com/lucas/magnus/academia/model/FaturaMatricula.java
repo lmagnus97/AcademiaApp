@@ -7,14 +7,14 @@ public class FaturaMatricula {
     private int codigoMatricula;
     private Calendar dataVencimento;
     private Double valor;
-    private Calendar dataPagamento;
-    private Calendar dataCancelamento;
+    private Long dataPagamento;
+    private Long dataCancelamento;
     private String aluno;
 
     public FaturaMatricula() {
     }
 
-    public FaturaMatricula(int codigoMatricula, Calendar dataVencimento, Double valor, Calendar dataPagamento, Calendar dataCancelamento, String aluno) {
+    public FaturaMatricula(int codigoMatricula, Calendar dataVencimento, Double valor, Long dataPagamento, Long dataCancelamento, String aluno) {
         this.codigoMatricula = codigoMatricula;
         this.dataVencimento = dataVencimento;
         this.valor = valor;
@@ -47,19 +47,19 @@ public class FaturaMatricula {
         this.valor = valor;
     }
 
-    public Calendar getDataPagamento() {
+    public Long getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(Calendar dataPagamento) {
+    public void setDataPagamento(Long dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
 
-    public Calendar getDataCancelamento() {
+    public Long getDataCancelamento() {
         return dataCancelamento;
     }
 
-    public void setDataCancelamento(Calendar dataCancelamento) {
+    public void setDataCancelamento(Long dataCancelamento) {
         this.dataCancelamento = dataCancelamento;
     }
 

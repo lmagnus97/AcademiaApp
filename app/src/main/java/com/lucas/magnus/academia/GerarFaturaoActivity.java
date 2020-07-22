@@ -24,7 +24,6 @@ import com.lucas.magnus.academia.model.FaturaMatricula;
 import com.lucas.magnus.academia.model.MatriculaModalidade;
 import com.lucas.magnus.academia.util.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -81,13 +80,13 @@ public class GerarFaturaoActivity extends AppCompatActivity implements Matricula
             public void onClick(View v) {
 
                 //LISTA MATRICULAS - MODALIDADES
-                List<MatriculaModalidade> lista = dao.selectAll(codMatricula);
+                List<MatriculaModalidade> lista = dao.selectForCodigoMatricula(codMatricula);
                 mAdapter = new MatriculaModalidadeAdapter(lista, R.layout.item_matricula_fatura, GerarFaturaoActivity.this);
                 recyclerView.setAdapter(mAdapter);
 
                 double total = 0;
                 for (MatriculaModalidade item : lista) {
-                    total += item.getValorMensal();
+                    total += item.getPlano().getValorMensal();
                 }
 
                 tvTotal.setText(Utils.convertToMoney(total));

@@ -1,107 +1,154 @@
 package com.lucas.magnus.academia.model;
 
-import java.util.Calendar;
+import com.google.gson.annotations.SerializedName;
 
-public class MatriculaModalidade {
+import java.io.Serializable;
 
-    private int codigoMatricula;
-    private String modalidade;
-    private String graduacao;
-    private Calendar dataInicio;
-    private Calendar dataFim;
-    private String plano;
-    private String aluno;
-    private Double valorMensal;
+public class MatriculaModalidade implements Serializable {
+
+    private Matricula matricula;
+    private Modalidade modalidade;
+    private Graduacao graduacao;
+    @SerializedName("data_inicio")
+    private Long dataInicio;
+    @SerializedName("data_fim")
+    private Long dataFim;
+    private Plano plano;
+    @SerializedName("id_usuario")
+    private Integer idUsuario;
+    @SerializedName("id_matricula")
+    private Integer idMatricula;
+    @SerializedName("id_modalidade")
+    private Integer idModalidade;
+    @SerializedName("id_graduacao")
+    private Integer idGraduacao;
+    @SerializedName("id_plano")
+    private Integer idPlano;
+    private Integer idNuvem;
 
     public MatriculaModalidade() {
     }
 
-    public MatriculaModalidade(int codigoMatricula, String modalidade, String graduacao, Calendar dataInicio, Calendar dataFim, String plano, String aluno, Double valorMensal) {
-        this.codigoMatricula = codigoMatricula;
+    public MatriculaModalidade(Matricula matricula, Modalidade modalidade, Graduacao graduacao, Long dataInicio, Long dataFim, Plano plano) {
+        this.matricula = matricula;
         this.modalidade = modalidade;
         this.graduacao = graduacao;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.plano = plano;
-        this.aluno = aluno;
-        this.valorMensal = valorMensal;
     }
 
-    public int getCodigoMatricula() {
-        return codigoMatricula;
+    public Matricula getMatricula() {
+        return matricula;
     }
 
-    public void setCodigoMatricula(int codigoMatricula) {
-        this.codigoMatricula = codigoMatricula;
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
     }
 
-    public String getModalidade() {
+    public Modalidade getModalidade() {
         return modalidade;
     }
 
-    public void setModalidade(String modalidade) {
+    public void setModalidade(Modalidade modalidade) {
         this.modalidade = modalidade;
     }
 
-    public String getGraduacao() {
+    public Graduacao getGraduacao() {
         return graduacao;
     }
 
-    public void setGraduacao(String graduacao) {
+    public void setGraduacao(Graduacao graduacao) {
         this.graduacao = graduacao;
     }
 
-    public Calendar getDataInicio() {
+    public Long getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Calendar dataInicio) {
+    public void setDataInicio(Long dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Calendar getDataFim() {
+    public Long getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Calendar dataFim) {
+    public void setDataFim(Long dataFim) {
         this.dataFim = dataFim;
     }
 
-    public String getPlano() {
+    public Plano getPlano() {
         return plano;
     }
 
-    public void setPlano(String plano) {
+    public void setPlano(Plano plano) {
         this.plano = plano;
     }
 
-    public String getAluno() {
-        return aluno;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setAluno(String aluno) {
-        this.aluno = aluno;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public Double getValorMensal() {
-        return valorMensal;
+    public Integer getIdMatricula() {
+        return idMatricula;
     }
 
-    public void setValorMensal(Double valorMensal) {
-        this.valorMensal = valorMensal;
+    public void setIdMatricula(Integer idMatricula) {
+        this.idMatricula = idMatricula;
+    }
+
+    public Integer getIdModalidade() {
+        return idModalidade;
+    }
+
+    public void setIdModalidade(Integer idModalidade) {
+        this.idModalidade = idModalidade;
+    }
+
+    public Integer getIdGraduacao() {
+        return idGraduacao;
+    }
+
+    public void setIdGraduacao(Integer idGraduacao) {
+        this.idGraduacao = idGraduacao;
+    }
+
+    public Integer getIdPlano() {
+        return idPlano;
+    }
+
+    public void setIdPlano(Integer idPlano) {
+        this.idPlano = idPlano;
+    }
+
+    public Integer getIdNuvem() {
+        return idNuvem;
+    }
+
+    public void setIdNuvem(Integer idNuvem) {
+        this.idNuvem = idNuvem;
     }
 
     @Override
     public String toString() {
         return "MatriculaModalidade{" +
-                "codigoMatricula=" + codigoMatricula +
-                ", modalidade='" + modalidade + '\'' +
-                ", graduacao='" + graduacao + '\'' +
+                "matricula=" + matricula +
+                ", modalidade=" + modalidade +
+                ", graduacao=" + graduacao +
                 ", dataInicio=" + dataInicio +
                 ", dataFim=" + dataFim +
-                ", plano='" + plano + '\'' +
-                ", aluno='" + aluno + '\'' +
-                ", valorMensal=" + valorMensal +
+                ", plano=" + plano +
+                ", idUsuario=" + idUsuario +
+                ", idMatricula=" + idMatricula +
+                ", idModalidade=" + idModalidade +
+                ", idGraduacao=" + idGraduacao +
+                ", idPlano=" + idPlano +
+                ", idNuvem=" + idNuvem +
                 '}';
     }
 }

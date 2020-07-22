@@ -1,12 +1,15 @@
 package com.lucas.magnus.academia.model;
 
-import java.util.Calendar;
+import com.google.gson.annotations.SerializedName;
 
-public class Aluno {
+import java.io.Serializable;
 
-    private int codigoAluno;
+public class Aluno implements Serializable {
+
+    private Integer codigoAluno;
     private String aluno;
-    private Calendar dataNascimento;
+    @SerializedName("data_nascimento")
+    private Long dataNascimento;
     private String sexo;
     private String telefone;
     private String celular;
@@ -20,11 +23,14 @@ public class Aluno {
     private String estado;
     private String pais;
     private String cep;
+    @SerializedName("id_usuario")
+    private Integer idUsuario;
+    private Integer idNuvem;
 
     public Aluno() {
     }
 
-    public Aluno(int codigoAluno, String aluno, Calendar dataNascimento, String sexo, String telefone, String celular, String email, String observacao,
+    public Aluno(int codigoAluno, String aluno, Long dataNascimento, String sexo, String telefone, String celular, String email, String observacao,
                  String endereco, String numero, String complemento, String bairro, String cidade, String estado, String pais, String cep) {
         this.codigoAluno = codigoAluno;
         this.aluno = aluno;
@@ -44,11 +50,11 @@ public class Aluno {
         this.cep = cep;
     }
 
-    public int getCodigoAluno() {
+    public Integer getCodigoAluno() {
         return codigoAluno;
     }
 
-    public void setCodigoAluno(int codigoAluno) {
+    public void setCodigoAluno(Integer codigoAluno) {
         this.codigoAluno = codigoAluno;
     }
 
@@ -60,11 +66,11 @@ public class Aluno {
         this.aluno = aluno;
     }
 
-    public Calendar getDataNascimento() {
+    public Long getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Calendar dataNascimento) {
+    public void setDataNascimento(Long dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -172,25 +178,19 @@ public class Aluno {
         this.cep = cep;
     }
 
-    @Override
-    public String toString() {
-        return "Aluno{" +
-                "codigoAluno=" + codigoAluno +
-                ", aluno='" + aluno + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", sexo='" + sexo + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", celular='" + celular + '\'' +
-                ", email='" + email + '\'' +
-                ", observacao='" + observacao + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                ", pais='" + pais + '\'' +
-                ", cep='" + cep + '\'' +
-                '}';
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdNuvem() {
+        return idNuvem;
+    }
+
+    public void setIdNuvem(Integer idNuvem) {
+        this.idNuvem = idNuvem;
     }
 }

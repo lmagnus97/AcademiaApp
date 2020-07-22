@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.lucas.magnus.academia.db.AbstractDB;
 import com.lucas.magnus.academia.db.DBOpenHelper;
+import com.lucas.magnus.academia.model.Modalidade;
 import com.lucas.magnus.academia.model.Plano;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class PlanoDAO extends AbstractDB {
             open();
             ContentValues values = new ContentValues();
             values.put(COLUMN_PLANO, data.getPlano().trim());
-            values.put(COLUMN_MODALIDADE, data.getModalidade().trim());
+            values.put(COLUMN_MODALIDADE, data.getModalidade().getModalidade().trim());
             values.put(COLUMN_VALOR_MENSAL, data.getValorMensal());
 
             rowsAffect = database.insert(TABLE_NAME, null, values);
@@ -152,7 +153,7 @@ public class PlanoDAO extends AbstractDB {
                     TABLE_NAME,
                     colunas,
                     COLUMN_ATIVO + " = 0 and " + COLUMN_MODALIDADE + " = ? and " + COLUMN_PLANO + " = ?",
-                    new String[]{plano.getModalidade(), plano.getPlano()},
+                    new String[]{plano.getModalidade().getModalidade(), plano.getPlano()},
                     null,
                     null,
                     null
@@ -186,7 +187,7 @@ public class PlanoDAO extends AbstractDB {
             rowAffect = database.update(
                     TABLE_NAME, values,
                     COLUMN_MODALIDADE + "= ? and " + COLUMN_PLANO + " = ?",
-                    new String[]{plano.getModalidade(), plano.getPlano()});
+                    new String[]{plano.getModalidade().getModalidade(), plano.getPlano()});
 
         } catch (SQLException e) {
             System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
@@ -242,7 +243,7 @@ public class PlanoDAO extends AbstractDB {
             rowAffect = database.update(
                     TABLE_NAME, values,
                     COLUMN_MODALIDADE + "= ? and " + COLUMN_PLANO + " = ?",
-                    new String[]{data.getModalidade(), data.getPlano()}
+                    new String[]{data.getModalidade().getModalidade(), data.getPlano()}
             );
 
         } catch (Exception e) {
@@ -266,7 +267,7 @@ public class PlanoDAO extends AbstractDB {
             rowAffect = database.update(
                     TABLE_NAME, values,
                     COLUMN_PLANO + "= ? and " + COLUMN_MODALIDADE + " = ?",
-                    new String[]{plano.getPlano(), plano.getModalidade()});
+                    new String[]{plano.getPlano(), plano.getModalidade().getModalidade()});
 
         } catch (SQLException e) {
             System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
@@ -279,7 +280,7 @@ public class PlanoDAO extends AbstractDB {
 
     public Plano toObject(Cursor cursor) {
         Plano data = new Plano();
-        data.setModalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE)));
+        data.setModalidade(new Modalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE))));
         data.setPlano(cursor.getString(cursor.getColumnIndex(COLUMN_PLANO)));
         data.setValorMensal(cursor.getDouble(cursor.getColumnIndex(COLUMN_VALOR_MENSAL)));
         return data;

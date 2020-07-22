@@ -12,12 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.lucas.magnus.academia.adapter.AlunoAdapter;
 import com.lucas.magnus.academia.adapter.FaturasAdapter;
-import com.lucas.magnus.academia.dao.AlunoDAO;
 import com.lucas.magnus.academia.dao.FaturaDAO;
-import com.lucas.magnus.academia.model.Aluno;
 import com.lucas.magnus.academia.model.FaturaMatricula;
 
 import java.util.Objects;

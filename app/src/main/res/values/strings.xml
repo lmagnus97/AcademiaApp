@@ -63,7 +63,7 @@
     <string name="academia">AcademiaApp</string>
     <string name="entrar">ENTRAR</string>
     <string name="senha">Senha</string>
-    <string name="logado">Logado como Lucas Magnus</string>
+    <string name="logado">Usuário logado: %d</string>
     <string name="sair">Sair</string>
     <string name="sem_alunos">Nenhum aluno cadastrado</string>
     <string name="adicionar_matricula">Adicionar matrícula</string>
@@ -71,5 +71,8 @@
     <string name="faturas">Faturas</string>
     <string name="add_plano">Adicionar plano</string>
     <string name="add_modalidade">Adicionar modalidade</string>
+    <string name="criar_conta">Criar conta</string>
+    <string name="sincrozinar_nuvem">Sincronizar dados com a nuvem</string>
+    <string name="sincronizar">Sincronizar</string>
 
 </resources>

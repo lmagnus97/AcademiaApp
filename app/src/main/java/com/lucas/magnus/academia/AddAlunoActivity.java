@@ -12,10 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.lucas.magnus.academia.dao.AlunoDAO;
-import com.lucas.magnus.academia.dao.ModalidadeDAO;
 import com.lucas.magnus.academia.model.Aluno;
 import com.lucas.magnus.academia.model.Cidade;
 import com.lucas.magnus.academia.util.Utils;
@@ -90,7 +87,7 @@ public class AddAlunoActivity extends AppCompatActivity {
             }
 
             if (aluno.getDataNascimento() != null) {
-                mCalendarAniversario = aluno.getDataNascimento();
+                mCalendarAniversario.setTimeInMillis(aluno.getDataNascimento());
                 btDataNascimento.setText(Utils.calendarToString(mCalendarAniversario));
             }
 
@@ -178,14 +175,14 @@ public class AddAlunoActivity extends AppCompatActivity {
                         etCep.setError("Informe o CEP!");
                     } else {
 
-                        Aluno aluno = new Aluno();
+                        final Aluno aluno = new Aluno();
                         aluno.setAluno(etNome.getText().toString());
                         aluno.setBairro(etBairro.getText().toString());
                         aluno.setCelular(etCelular.getText().toString());
                         aluno.setCep(etCep.getText().toString());
                         aluno.setCidade(mCidade.getCidade());
                         aluno.setComplemento(etComplemento.getText().toString());
-                        aluno.setDataNascimento(mCalendarAniversario);
+                        aluno.setDataNascimento(mCalendarAniversario.getTimeInMillis());
                         aluno.setEmail(etEmail.getText().toString());
                         aluno.setEndereco(etEndereco.getText().toString());
                         aluno.setEstado(mCidade.getEstado());
@@ -195,9 +192,11 @@ public class AddAlunoActivity extends AppCompatActivity {
                         aluno.setSexo(Utils.convertToSexo(rbSelected.getText().toString(), AddAlunoActivity.this));
                         aluno.setTelefone(etTelefone.getText().toString());
 
+                        aluno.setIdUsuario(1);
+
                         if (codAluno == 0) {
                             if (alunoDAO.insert(aluno) > 0) {
-                                Toast.makeText(AddAlunoActivity.this, aluno.getAluno() + " cadastrado!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAlunoActivity.this, "Aluno cadastrado!", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
                         } else {

@@ -64,7 +64,7 @@ public class AlunoDAO extends AbstractDB {
             + "("
             + COLUMN_CODIGO_ALUNO + " integer primary key autoincrement, "
             + COLUMN_ALUNO + " text not null, "
-            + COLUMN_DATA_NASCIMENTO + " VARCHAR, "
+            + COLUMN_DATA_NASCIMENTO + " long, "
             + COLUMN_SEXO + " text not null, "
             + COLUMN_TELEFONE + " text, "
             + COLUMN_CELULAR + " text not null, "
@@ -214,7 +214,7 @@ public class AlunoDAO extends AbstractDB {
             values.put(COLUMN_PAIS, aluno.getPais().trim());
             values.put(COLUMN_SEXO, aluno.getSexo().trim());
             values.put(COLUMN_TELEFONE, aluno.getTelefone().trim());
-            values.put(COLUMN_DATA_NASCIMENTO, Utils.calendarToString(aluno.getDataNascimento()));
+            values.put(COLUMN_DATA_NASCIMENTO, aluno.getDataNascimento());
 
             rowsAffect = database.insert(TABLE_NAME, null, values);
 
@@ -250,7 +250,7 @@ public class AlunoDAO extends AbstractDB {
             values.put(COLUMN_PAIS, data.getPais().trim());
             values.put(COLUMN_SEXO, data.getSexo().trim());
             values.put(COLUMN_TELEFONE, data.getTelefone().trim());
-            values.put(COLUMN_DATA_NASCIMENTO, Utils.calendarToString(data.getDataNascimento()));
+            values.put(COLUMN_DATA_NASCIMENTO, data.getDataNascimento());
 
             rowAffect = database.update(
                     TABLE_NAME, values,
@@ -301,7 +301,7 @@ public class AlunoDAO extends AbstractDB {
         aluno.setCep(cursor.getString(cursor.getColumnIndex(COLUMN_CEP)));
         aluno.setCidade(cursor.getString(cursor.getColumnIndex(COLUMN_CIDADE)));
         aluno.setComplemento(cursor.getString(cursor.getColumnIndex(COLUMN_COMPLEMENTO)));
-        aluno.setDataNascimento(Utils.stringToCalendar(cursor.getString(cursor.getColumnIndex(COLUMN_DATA_NASCIMENTO))));
+        aluno.setDataNascimento(cursor.getLong(cursor.getColumnIndex(COLUMN_DATA_NASCIMENTO)));
         aluno.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)));
         aluno.setEndereco(cursor.getString(cursor.getColumnIndex(COLUMN_ENDERECO)));
         aluno.setEstado(cursor.getString(cursor.getColumnIndex(COLUMN_ESTADO)));

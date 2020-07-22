@@ -3,9 +3,6 @@ package com.lucas.magnus.academia;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,12 +20,9 @@ import com.lucas.magnus.academia.dao.PlanoDAO;
 import com.lucas.magnus.academia.model.Modalidade;
 import com.lucas.magnus.academia.model.Plano;
 import com.lucas.magnus.academia.util.MaskMoney;
-import com.lucas.magnus.academia.util.Utils;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class AddPlanoActivity extends AppCompatActivity {
@@ -93,7 +87,7 @@ public class AddPlanoActivity extends AppCompatActivity {
                         } else {
                             final Plano data = new Plano();
                             data.setPlano(etPlano.getText().toString());
-                            data.setModalidade(spinnerModalidades.getSelectedItem().toString());
+                            data.setModalidade(new Modalidade(spinnerModalidades.getSelectedItem().toString()));
                             data.setValorMensal(Double.valueOf(etValor.getText().toString().replace(",", ".")));
 
                             if (dao.insert(data) > 0) {
@@ -121,7 +115,7 @@ public class AddPlanoActivity extends AppCompatActivity {
                     }else{
                         Plano data = new Plano();
                         data.setPlano(etPlano.getText().toString());
-                        data.setModalidade(spinnerModalidades.getSelectedItem().toString());
+                        data.setModalidade(new Modalidade(spinnerModalidades.getSelectedItem().toString()));
                         data.setValorMensal(Double.valueOf(etValor.getText().toString().replace(",", ".")));
 
                         if (dao.update(data) > 0) {

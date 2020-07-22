@@ -67,7 +67,7 @@ public class MatriculasActivity extends AppCompatActivity implements MatriculaAd
         Intent intent = new Intent(this, AddMatriculaActivity.class);
         intent.putExtra("codigo_matricula", item.getCodigoMatricula());
         intent.putExtra("aluno", item.getAluno());
-        intent.putExtra("codigo_aluno", item.getCodigoAluno());
+        intent.putExtra("codigo_aluno", item.getIdAluno());
         startActivity(intent);
     }
 

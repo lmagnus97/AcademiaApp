@@ -2,7 +2,6 @@ package com.lucas.magnus.academia;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -80,7 +79,7 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
 
             //GET MODALIDADES CADASTRADAS
             MatriculaModalidadeDAO dao = new MatriculaModalidadeDAO(this);
-            listaMatriculaModalidade.addAll(dao.selectAll(codMatricula));
+            listaMatriculaModalidade.addAll(dao.selectForCodigoMatricula(codMatricula));
         }
 
         //PROPRIEDADES DO RECYCLER
@@ -100,7 +99,7 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
 
                     //PEGA GRADUACOES
                     GraduacaoDAO graduacaoDAO = new GraduacaoDAO(AddMatriculaActivity.this);
-                    List<Graduacao> listaGraduacoes = graduacaoDAO.selectAll(spinnerModalidades.getSelectedItem().toString());
+                    List<Graduacao> listaGraduacoes = graduacaoDAO.selectForModalidade(spinnerModalidades.getSelectedItem().toString());
                     ArrayAdapter<String> adapterGraduacoes = new ArrayAdapter<>(AddMatriculaActivity.this, android.R.layout.simple_spinner_dropdown_item, Graduacao.convertToSpinner(listaGraduacoes, "Graduação"));
                     spinnerGraduacoes.setAdapter(adapterGraduacoes);
 
@@ -113,7 +112,7 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
                     //VISIBLE
                     cardGraduacao.setVisibility(View.VISIBLE);
                     cardPlano.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     //INVISIBLE
                     cardGraduacao.setVisibility(View.GONE);
                     cardPlano.setVisibility(View.GONE);
@@ -131,15 +130,15 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
             @Override
             public void onClick(View v) {
                 try {
-                    if(spinnerModalidades.getSelectedItemPosition() == 0){
+                    if (spinnerModalidades.getSelectedItemPosition() == 0) {
                         Toast.makeText(AddMatriculaActivity.this, "Selecione a modalidade!", Toast.LENGTH_SHORT).show();
-                    }else if(spinnerGraduacoes.getSelectedItemPosition() == 0 || cardGraduacao.getVisibility() == View.GONE){
+                    } else if (spinnerGraduacoes.getSelectedItemPosition() == 0 || cardGraduacao.getVisibility() == View.GONE) {
                         Toast.makeText(AddMatriculaActivity.this, "Informe a graduação!", Toast.LENGTH_SHORT).show();
-                    }else if(spinnerPlanos.getSelectedItemPosition() == 0 || cardPlano.getVisibility() == View.GONE){
+                    } else if (spinnerPlanos.getSelectedItemPosition() == 0 || cardPlano.getVisibility() == View.GONE) {
                         Toast.makeText(AddMatriculaActivity.this, "Informe o plano!", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         if (codMatricula == 0) {
-                            if(!etDiaVencimento.getText().toString().isEmpty() && Integer.parseInt(etDiaVencimento.getText().toString()) < 31){
+                            if (!etDiaVencimento.getText().toString().isEmpty() && Integer.parseInt(etDiaVencimento.getText().toString()) < 31) {
                                 codMatricula = registraMatricula(Integer.parseInt(etDiaVencimento.getText().toString()), codigoAluno, aluno);
                             }
                         }
@@ -148,15 +147,15 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
                             MatriculaModalidadeDAO dao = new MatriculaModalidadeDAO(AddMatriculaActivity.this);
 
                             MatriculaModalidade data = new MatriculaModalidade();
-                            data.setPlano(spinnerPlanos.getSelectedItem().toString());
-                            data.setModalidade(spinnerModalidades.getSelectedItem().toString());
-                            data.setGraduacao(spinnerGraduacoes.getSelectedItem().toString());
-                            data.setDataInicio(Calendar.getInstance());
-                            data.setCodigoMatricula(codMatricula);
+                            data.setPlano(new Plano(spinnerPlanos.getSelectedItem().toString()));
+                            data.setModalidade(new Modalidade(spinnerModalidades.getSelectedItem().toString()));
+                            data.setGraduacao(new Graduacao(spinnerGraduacoes.getSelectedItem().toString()));
+                            data.setDataInicio(Calendar.getInstance().getTimeInMillis());
+                            data.setMatricula(new Matricula(codMatricula));
 
                             PlanoDAO planoDAO = new PlanoDAO(AddMatriculaActivity.this);
                             Plano plano = planoDAO.select(spinnerPlanos.getSelectedItem().toString(), spinnerModalidades.getSelectedItem().toString());
-                            data.setValorMensal(plano.getValorMensal());
+                            data.getPlano().setValorMensal(plano.getValorMensal());
 
                             if (dao.insert(data) > 0) {
                                 listaMatriculaModalidade.add(data);
@@ -178,9 +177,9 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
             @Override
             public void onClick(View v) {
                 try {
-                    if(etDiaVencimento.getText().toString().isEmpty()){
+                    if (etDiaVencimento.getText().toString().isEmpty()) {
                         Toast.makeText(AddMatriculaActivity.this, "Informe o dia de vencimento!", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         if (codMatricula == 0) {
                             registraMatricula(Integer.parseInt(etDiaVencimento.getText().toString()), codigoAluno, aluno);
 
@@ -193,7 +192,7 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                 }
-                            }else{
+                            } else {
                                 Toast.makeText(AddMatriculaActivity.this, "Verifique os dados inseridos!", Toast.LENGTH_SHORT).show();
                             }
                         }
