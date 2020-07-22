@@ -3,6 +3,7 @@ package com.lucas.magnus.academia;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -66,8 +67,11 @@ public class AddPlanoActivity extends AppCompatActivity {
         }
 
         //LISTA MODALIDADES
+        Log.i("INFOLOG", "ENTROU 1");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, mPlano == null ? Modalidade.convertToSpinner(listaModalidades, "Modalidade") : Modalidade.convertToSpinner(listaModalidades, null));
+        Log.i("INFOLOG", "ENTROU 2");
         spinnerModalidades.setAdapter(adapter);
+        Log.i("INFOLOG", "ENTROU 3");
 
         //MASCARA PREÇO
         etValor.addTextChangedListener(new MaskMoney(etValor));

@@ -66,7 +66,7 @@ public class PlanosActivity extends AppCompatActivity implements PlanoAdapter.On
     public void onItemSelected(Plano item) {
         Intent intent = new Intent(PlanosActivity.this, AddPlanoActivity.class);
         intent.putExtra("plano", item.getPlano());
-        intent.putExtra("modalidade", item.getModalidade());
+        intent.putExtra("modalidade", item.getModalidade().getModalidade());
         startActivity(intent);
     }
 

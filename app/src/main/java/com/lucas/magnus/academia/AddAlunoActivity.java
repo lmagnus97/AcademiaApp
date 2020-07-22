@@ -87,6 +87,7 @@ public class AddAlunoActivity extends AppCompatActivity {
             }
 
             if (aluno.getDataNascimento() != null) {
+                mCalendarAniversario = Calendar.getInstance();
                 mCalendarAniversario.setTimeInMillis(aluno.getDataNascimento());
                 btDataNascimento.setText(Utils.calendarToString(mCalendarAniversario));
             }
