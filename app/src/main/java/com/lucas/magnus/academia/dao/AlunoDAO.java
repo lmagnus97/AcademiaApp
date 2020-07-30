@@ -8,7 +8,6 @@ import android.util.Log;
 import com.lucas.magnus.academia.db.AbstractDB;
 import com.lucas.magnus.academia.db.DBOpenHelper;
 import com.lucas.magnus.academia.model.Aluno;
-import com.lucas.magnus.academia.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,8 @@ public class AlunoDAO extends AbstractDB {
                     COLUMN_ESTADO,
                     COLUMN_PAIS,
                     COLUMN_CEP,
-                    COLUMN_ATIVO
+                    COLUMN_ATIVO,
+                    COLUMN_ID_NUVEM
             };
 
     public static final String
@@ -56,7 +56,8 @@ public class AlunoDAO extends AbstractDB {
             COLUMN_ESTADO = "estado",
             COLUMN_PAIS = "pais",
             COLUMN_CEP = "cep",
-            COLUMN_ATIVO = "ativo";
+            COLUMN_ATIVO = "ativo",
+            COLUMN_ID_NUVEM = "ID_NUVEM";
 
 
     public static final String
@@ -79,6 +80,7 @@ public class AlunoDAO extends AbstractDB {
             + COLUMN_PAIS + " text not null, "
             + COLUMN_CEP + " text not null, "
             + COLUMN_ATIVO + " integer default 1, "
+            + COLUMN_ID_NUVEM + " integer default 0, "
             + " FOREIGN KEY (" + COLUMN_CIDADE + ", " + COLUMN_ESTADO + ", " + COLUMN_PAIS + ") "
             + " REFERENCES " + CidadeDAO.TABLE_NAME + " (" + COLUMN_CIDADE + ", " + COLUMN_ESTADO + ", " + COLUMN_PAIS + ")"
             + ");";
@@ -265,7 +267,29 @@ public class AlunoDAO extends AbstractDB {
         }
 
         return rowAffect;
+    }
 
+    public long updateIdNuvem(Integer idAluno, Integer idNuvem) {
+        long rowAffect = 0;
+
+        try {
+            open();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID_NUVEM, idNuvem);
+
+            rowAffect = database.update(
+                    TABLE_NAME, values,
+                    COLUMN_CODIGO_ALUNO + " = ?",
+                    new String[]{String.valueOf(idAluno)}
+            );
+
+        } catch (Exception e) {
+            System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
+        } finally {
+            close();
+        }
+
+        return rowAffect;
     }
 
     public Long delete(final Integer codigoAluno) {
@@ -310,6 +334,7 @@ public class AlunoDAO extends AbstractDB {
         aluno.setPais(cursor.getString(cursor.getColumnIndex(COLUMN_PAIS)));
         aluno.setSexo(cursor.getString(cursor.getColumnIndex(COLUMN_SEXO)));
         aluno.setTelefone(cursor.getString(cursor.getColumnIndex(COLUMN_TELEFONE)));
+        aluno.setIdNuvem(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_NUVEM)));
 
         return aluno;
     }

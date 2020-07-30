@@ -226,7 +226,7 @@ public class AddMatriculaActivity extends AppCompatActivity implements Matricula
         Matricula data = new Matricula();
         data.setDiaVencimento(diaVencimento);
         data.setDataMatricula(Calendar.getInstance().getTimeInMillis());
-        data.setCodigoAluno(codigoAluno);
+        data.setIdAluno(codigoAluno);
 
         return dao.insert(data);
     }

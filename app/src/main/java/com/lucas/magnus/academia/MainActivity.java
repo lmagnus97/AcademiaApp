@@ -6,12 +6,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.lucas.magnus.academia.sync.Sync;
+import com.lucas.magnus.academia.util.UtilDialog;
 import com.lucas.magnus.academia.util.UtilShared;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final CardView cardFaturas = findViewById(R.id.cardFaturas);
         final Button btSair = findViewById(R.id.btSair);
         final TextView tvUsuario = findViewById(R.id.tvUsuario);
+        final Button btSincronizar = findViewById(R.id.btSincronizar);
 
         //ONCLICK
         btModalidades.setOnClickListener(this);
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btAddMatricula.setOnClickListener(this);
         cardFaturas.setOnClickListener(this);
         btSair.setOnClickListener(this);
+        btSincronizar.setOnClickListener(this);
 
         //GET USUARIO ATUAL
         tvUsuario.setText(getResources().getString(R.string.logado, UtilShared.getIdUsuario(MainActivity.this)));
@@ -86,6 +92,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
+            case R.id.btSincronizar:
+                sync();
+        }
+    }
+
+    public void sync() {
+        try {
+            final SweetAlertDialog dialog = UtilDialog.showDialog(
+                    MainActivity.this,
+                    SweetAlertDialog.PROGRESS_TYPE,
+                    "Sincronizando",
+                    "Enviando dados..."
+            );
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Sync.sync(MainActivity.this);
+                    dialog.dismissWithAnimation();
+                }
+            }).start();
+        } catch (Exception e) {
+            Toast.makeText(this, "Falha ao sincronizar, tente novamente...", Toast.LENGTH_SHORT).show();
         }
     }
 }

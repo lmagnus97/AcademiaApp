@@ -12,7 +12,6 @@ import com.lucas.magnus.academia.model.Matricula;
 import com.lucas.magnus.academia.model.MatriculaModalidade;
 import com.lucas.magnus.academia.model.Modalidade;
 import com.lucas.magnus.academia.model.Plano;
-import com.lucas.magnus.academia.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

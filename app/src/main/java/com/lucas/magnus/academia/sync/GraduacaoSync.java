@@ -9,7 +9,7 @@ public class GraduacaoSync {
 
     protected static Integer sync(Graduacao graduacao) {
 
-        Resposta resposta = API.PostGraduacao(graduacao);
+        Resposta resposta = API.postGraduacao(graduacao);
 
         if (resposta != null) {
             Utils.log("GRADUACAO SYNC", resposta.getMensagem());

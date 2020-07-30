@@ -9,7 +9,7 @@ public class MatriculaModalidadeSync {
 
     protected static Integer sync(MatriculaModalidade matriculaModalidade) {
 
-        Resposta resposta = API.PostMatriculaModalidade(matriculaModalidade);
+        Resposta resposta = API.postMatriculaModalidade(matriculaModalidade);
 
         if (resposta != null) {
             Utils.log("MATRICULA MODALIDADE SYNC", resposta.getMensagem());

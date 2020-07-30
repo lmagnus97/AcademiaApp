@@ -23,13 +23,15 @@ public class GraduacaoDAO extends AbstractDB {
             {
                     COLUMN_GRADUACAO,
                     COLUMN_MODALIDADE,
-                    COLUMN_ATIVO
+                    COLUMN_ATIVO,
+                    COLUMN_ID_NUVEM
             };
 
     public static final String
             COLUMN_MODALIDADE = "modalidade",
             COLUMN_GRADUACAO = "graduacao",
-            COLUMN_ATIVO = "ativo";
+            COLUMN_ATIVO = "ativo",
+            COLUMN_ID_NUVEM = "id_nuvem";
 
 
     public static final String
@@ -37,7 +39,8 @@ public class GraduacaoDAO extends AbstractDB {
             + "("
             + COLUMN_GRADUACAO + " VARCHAR(100), "
             + COLUMN_MODALIDADE + " VARCHAR(45), "
-            + COLUMN_ATIVO + " INTEGER DEFAULT 1, " +
+            + COLUMN_ATIVO + " INTEGER DEFAULT 1, "
+            + COLUMN_ID_NUVEM + " INTEGER DEFAULT 0, " +
             " PRIMARY KEY ( " + COLUMN_MODALIDADE + ", " + COLUMN_GRADUACAO + ")" +
             " FOREIGN KEY (" + COLUMN_MODALIDADE + ") REFERENCES " + ModalidadeDAO.TABLE_NAME + " ( " + COLUMN_MODALIDADE + ") "
             + ");";
@@ -193,6 +196,29 @@ public class GraduacaoDAO extends AbstractDB {
         return rowAffect;
     }
 
+    public long updateIdNuvem(String graduacao, Integer idNuvem) {
+        long rowAffect = 0;
+
+        try {
+            open();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID_NUVEM, idNuvem);
+
+            rowAffect = database.update(
+                    TABLE_NAME, values,
+                    COLUMN_GRADUACAO + " = ?",
+                    new String[]{graduacao}
+            );
+
+        } catch (Exception e) {
+            System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
+        } finally {
+            close();
+        }
+
+        return rowAffect;
+    }
+
     public Graduacao select(String graduacao) {
         Graduacao result = new Graduacao();
 
@@ -253,6 +279,7 @@ public class GraduacaoDAO extends AbstractDB {
         Graduacao graduacao = new Graduacao();
         graduacao.setGraduacao(cursor.getString(cursor.getColumnIndex(COLUMN_GRADUACAO)));
         graduacao.setModalidade(new Modalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE))));
+        graduacao.setIdNuvem(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_NUVEM)));
         return graduacao;
     }
 

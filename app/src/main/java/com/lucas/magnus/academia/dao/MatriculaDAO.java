@@ -9,7 +9,6 @@ import com.lucas.magnus.academia.db.AbstractDB;
 import com.lucas.magnus.academia.db.DBOpenHelper;
 import com.lucas.magnus.academia.model.Aluno;
 import com.lucas.magnus.academia.model.Matricula;
-import com.lucas.magnus.academia.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,7 @@ public class MatriculaDAO extends AbstractDB {
                     COLUMN_DATA_MATRICULA,
                     COLUMN_DIA_VENCIMENTO,
                     COLUMN_DATA_ENCERRAMENTO,
+                    COLUMN_ID_NUVEM
             };
 
     public static final String
@@ -33,7 +33,8 @@ public class MatriculaDAO extends AbstractDB {
             COLUMN_CODIGO_ALUNO = "codigo_aluno",
             COLUMN_DATA_MATRICULA = "data_matricula",
             COLUMN_DIA_VENCIMENTO = "dia_vencimento",
-            COLUMN_DATA_ENCERRAMENTO = "data_encerramento";
+            COLUMN_DATA_ENCERRAMENTO = "data_encerramento",
+            COLUMN_ID_NUVEM = "id_nuvem";
 
 
     public static final String
@@ -43,7 +44,8 @@ public class MatriculaDAO extends AbstractDB {
             + COLUMN_CODIGO_ALUNO + " INTEGER DEFAULT NULL, "
             + COLUMN_DATA_MATRICULA + " integer NOT NULL, "
             + COLUMN_DIA_VENCIMENTO + " INTEGER NOT NULL, "
-            + COLUMN_DATA_ENCERRAMENTO + " integer DEFAULT NULL, " +
+            + COLUMN_DATA_ENCERRAMENTO + " integer DEFAULT NULL, "
+            + COLUMN_ID_NUVEM + " integer DEFAULT 0, " +
             " UNIQUE (" + COLUMN_CODIGO_MATRICULA + ", " + COLUMN_CODIGO_ALUNO + " ) ,"
             + " FOREIGN KEY ( " + COLUMN_CODIGO_ALUNO + " ) REFERENCES " + AlunoDAO.TABLE_NAME + " ( " + COLUMN_CODIGO_ALUNO + " )"
             + ");";
@@ -158,6 +160,30 @@ public class MatriculaDAO extends AbstractDB {
 
     }
 
+    public long updateIdNuvem(Integer codMatricula, Integer idNuvem) {
+        long rowAffect = 0;
+
+        try {
+            open();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID_NUVEM, idNuvem);
+
+            rowAffect = database.update(
+                    TABLE_NAME, values,
+                    COLUMN_CODIGO_MATRICULA + "= ?",
+                    new String[]{String.valueOf(codMatricula)}
+            );
+
+        } catch (Exception e) {
+            System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
+        } finally {
+            close();
+        }
+
+        return rowAffect;
+
+    }
+
     public void delete(final String data) {
         open();
         database.delete(TABLE_NAME, COLUMN_CODIGO_MATRICULA + "= ?", new String[]{data});
@@ -176,6 +202,7 @@ public class MatriculaDAO extends AbstractDB {
         data.setDataMatricula(cursor.getLong(cursor.getColumnIndex(COLUMN_DATA_MATRICULA)));
         data.setDataEncerramento(cursor.getLong(cursor.getColumnIndex(COLUMN_DATA_ENCERRAMENTO)));
         data.setAluno(aluno);
+        data.setIdNuvem(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_NUVEM)));
         return data;
     }
 

@@ -24,14 +24,16 @@ public class PlanoDAO extends AbstractDB {
                     COLUMN_PLANO,
                     COLUMN_MODALIDADE,
                     COLUMN_VALOR_MENSAL,
-                    COLUMN_ATIVO
+                    COLUMN_ATIVO,
+                    COLUMN_ID_NUVEM
             };
 
     public static final String
             COLUMN_PLANO = "plano",
             COLUMN_MODALIDADE = "modalidade",
             COLUMN_VALOR_MENSAL = "valor_mensal",
-            COLUMN_ATIVO = "ativo";
+            COLUMN_ATIVO = "ativo",
+            COLUMN_ID_NUVEM = "id_nuvem";
 
 
     public static final String
@@ -41,6 +43,7 @@ public class PlanoDAO extends AbstractDB {
             + COLUMN_MODALIDADE + " VARCHAR, "
             + COLUMN_VALOR_MENSAL + " REAL NOT NULL, "
             + COLUMN_ATIVO + " INTEGER DEFAULT 1, "
+            + COLUMN_ID_NUVEM + " INTEGER DEFAULT 0, "
             + " PRIMARY KEY ( " + COLUMN_PLANO + ", " + COLUMN_MODALIDADE + " ), "
             + " FOREIGN KEY (" + COLUMN_MODALIDADE + ") REFERENCES " + ModalidadeDAO.TABLE_NAME + " ( " + COLUMN_MODALIDADE + " )"
             + ");";
@@ -253,7 +256,29 @@ public class PlanoDAO extends AbstractDB {
         }
 
         return rowAffect;
+    }
 
+    public long updateIdNuvem(Plano plano, Integer idNuvem) {
+        long rowAffect = 0;
+
+        try {
+            open();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID_NUVEM, idNuvem);
+
+            rowAffect = database.update(
+                    TABLE_NAME, values,
+                    COLUMN_MODALIDADE + "= ? and " + COLUMN_PLANO + " = ?",
+                    new String[]{plano.getModalidade().getModalidade(), plano.getPlano()}
+            );
+
+        } catch (Exception e) {
+            System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
+        } finally {
+            close();
+        }
+
+        return rowAffect;
     }
 
     public long delete(final Plano plano) {
@@ -283,6 +308,7 @@ public class PlanoDAO extends AbstractDB {
         data.setModalidade(new Modalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE))));
         data.setPlano(cursor.getString(cursor.getColumnIndex(COLUMN_PLANO)));
         data.setValorMensal(cursor.getDouble(cursor.getColumnIndex(COLUMN_VALOR_MENSAL)));
+        data.setIdNuvem(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_NUVEM)));
         return data;
     }
 

@@ -3,13 +3,15 @@ package com.lucas.magnus.academia.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 public class Matricula implements Serializable {
 
     private Integer codigoMatricula;
+    @SerializedName("data_matricula")
     private Long dataMatricula;
+    @SerializedName("dia_vencimento")
     private Integer diaVencimento;
+    @SerializedName("data_encerramento")
     private Long dataEncerramento;
     private Aluno aluno;
     @SerializedName("id_usuario")
@@ -72,10 +74,6 @@ public class Matricula implements Serializable {
 
     public void setDataEncerramento(Long dataEncerramento) {
         this.dataEncerramento = dataEncerramento;
-    }
-
-    public void setCodigoAluno(Integer codigoAluno) {
-        this.idAluno = codigoAluno;
     }
 
     public void setDiaVencimento(Integer diaVencimento) {

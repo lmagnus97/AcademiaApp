@@ -21,19 +21,22 @@ public class ModalidadeDAO extends AbstractDB {
     private final String[] colunas =
             {
                     COLUMN_MODALIDADE,
-                    COLUMN_ATIVO
+                    COLUMN_ATIVO,
+                    COLUMN_ID_NUVEM
             };
 
     public static final String
             COLUMN_MODALIDADE = "modalidade",
-            COLUMN_ATIVO = "ativo";
+            COLUMN_ATIVO = "ativo",
+            COLUMN_ID_NUVEM = "id_nuvem";
 
 
     public static final String
             CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
             + "("
             + COLUMN_MODALIDADE + " VARCHAR(100) PRIMARY KEY, "
-            + COLUMN_ATIVO + " INTEGER DEFAULT 1"
+            + COLUMN_ATIVO + " INTEGER DEFAULT 1, "
+            + COLUMN_ID_NUVEM + " INTEGER DEFAULT 0"
             + ");";
 
     public static final String
@@ -44,11 +47,10 @@ public class ModalidadeDAO extends AbstractDB {
     }
 
     public List<Modalidade> selectAll() {
-        List<Modalidade> contatos = new ArrayList<>();
+        List<Modalidade> lista = new ArrayList<>();
 
         try {
             open();
-
             Cursor cursor = database.query(
                     ModalidadeDAO.TABLE_NAME,
                     colunas,
@@ -62,7 +64,7 @@ public class ModalidadeDAO extends AbstractDB {
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
-                contatos.add(toObject(cursor));
+                lista.add(toObject(cursor));
                 cursor.moveToNext();
             }
 
@@ -74,7 +76,7 @@ public class ModalidadeDAO extends AbstractDB {
             close();
         }
 
-        return contatos;
+        return lista;
     }
 
     public long insert(Modalidade modalidade) {
@@ -133,6 +135,29 @@ public class ModalidadeDAO extends AbstractDB {
         return false;
     }
 
+    public long updateIdNuvem(String modalidade, Integer idNuvem) {
+        long rowAffect = 0;
+
+        try {
+            open();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID_NUVEM, idNuvem);
+
+            rowAffect = database.update(
+                    TABLE_NAME, values,
+                    COLUMN_MODALIDADE + " = ?",
+                    new String[]{modalidade}
+            );
+
+        } catch (Exception e) {
+            System.out.println("DATABASE UPDATE ERROR " + e.getMessage());
+        } finally {
+            close();
+        }
+
+        return rowAffect;
+    }
+
     public long ativarModalidade(final String modalidade) {
         long rowAffect = 0;
 
@@ -180,6 +205,7 @@ public class ModalidadeDAO extends AbstractDB {
     public Modalidade toObject(Cursor cursor) {
         Modalidade modalidade = new Modalidade();
         modalidade.setModalidade(cursor.getString(cursor.getColumnIndex(COLUMN_MODALIDADE)));
+        modalidade.setIdNuvem(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_NUVEM)));
         return modalidade;
     }
 

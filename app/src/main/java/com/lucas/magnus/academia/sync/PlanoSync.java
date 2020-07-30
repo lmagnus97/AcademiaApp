@@ -9,7 +9,7 @@ public class PlanoSync {
 
     protected static Integer sync(Plano plano) {
 
-        Resposta resposta = API.PostPlano(plano);
+        Resposta resposta = API.postPlano(plano);
 
         if (resposta != null) {
             Utils.log("PLANO SYNC", resposta.getMensagem());

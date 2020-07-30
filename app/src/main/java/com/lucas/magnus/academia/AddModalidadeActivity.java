@@ -17,19 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lucas.magnus.academia.adapter.GraduacaoAdapter;
-import com.lucas.magnus.academia.api.API;
 import com.lucas.magnus.academia.dao.GraduacaoDAO;
 import com.lucas.magnus.academia.dao.ModalidadeDAO;
 import com.lucas.magnus.academia.model.Graduacao;
 import com.lucas.magnus.academia.model.Modalidade;
-import com.lucas.magnus.academia.model.Resposta;
 
 import java.util.List;
 import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AddModalidadeActivity extends AppCompatActivity implements GraduacaoAdapter.OnItemSelectedListener {
 

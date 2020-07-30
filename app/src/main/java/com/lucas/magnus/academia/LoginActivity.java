@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.lucas.magnus.academia.api.API;
 import com.lucas.magnus.academia.model.Usuario;
+import com.lucas.magnus.academia.util.UtilDialog;
 import com.lucas.magnus.academia.util.UtilShared;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,14 +42,22 @@ public class LoginActivity extends AppCompatActivity {
         btEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final SweetAlertDialog dialog = UtilDialog.showDialog(
+                        LoginActivity.this,
+                        SweetAlertDialog.PROGRESS_TYPE,
+                        "Autenticando usuário",
+                        "Aguarde..."
+                );
+
                 if (etEmail.getText().toString().isEmpty()) {
                     etEmail.setError("Campo obrigatório");
                 } else if (etSenha.getText().toString().isEmpty()) {
                     etSenha.setError("Campo obrigatório");
                 } else {
-                    API.GetUsuario(etEmail.getText().toString(), etSenha.getText().toString(), new Callback<Usuario>() {
+                    API.getUsuario(etEmail.getText().toString(), etSenha.getText().toString(), new Callback<Usuario>() {
                         @Override
                         public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                            dialog.dismissWithAnimation();
 
                             if (response == null) {
                                 Toast.makeText(LoginActivity.this, "Usuário inexistente ou dados inválidos!", Toast.LENGTH_SHORT).show();
@@ -65,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Usuario> call, Throwable t) {
+                            dialog.dismissWithAnimation();
                             Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });

@@ -8,8 +8,7 @@ import com.lucas.magnus.academia.util.Utils;
 public class MatriculaSync {
 
     protected static Integer sync(Matricula matricula) {
-
-        Resposta response = API.PostMatricula(matricula);
+        Resposta response = API.postMatricula(matricula);
 
         if (response != null) {
             Utils.log("MATRICULA SYNC", response.getMensagem());

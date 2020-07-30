@@ -9,6 +9,7 @@ public class Plano {
 
     private String plano;
     private Modalidade modalidade;
+    @SerializedName("valor_mensal")
     private Double valorMensal;
     @SerializedName("id_usuario")
     private Integer idUsuario;

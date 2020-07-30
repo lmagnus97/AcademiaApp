@@ -2,9 +2,6 @@ package com.lucas.magnus.academia.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class UtilShared{
 
